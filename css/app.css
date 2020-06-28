@@ -63,9 +63,6 @@ blockquote {
   width: 80vw;
   display: flex;
   flex-direction: column;
-
-  /* debug */
-  border: 10px solid green;
 }
 
 .lightbox__img-container {
@@ -87,9 +84,6 @@ blockquote {
 .lightbox__text-quote {
   font-size: 1.4em;
   padding: 0 0 20px 0;
-
-  /* debug */
-  border: 2px solid purple;
 }
 
 .lightbox__text-author,
@@ -99,7 +93,4 @@ blockquote {
   line-height: 1.2em;
   text-align: right;
   margin-right: 15%;
-
-  /* debug */
-  border: 2px solid orange;
 }
