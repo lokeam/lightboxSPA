@@ -1,10 +1,7 @@
-console.log('app.js');
-
 // REST Service Class - Handles XHR requests
   // use XHR to make request
   // only GET method needed
   // return promise for async handling
-
 class RESTService {
   constructor() {
     this._rawResponse = null;
@@ -39,23 +36,35 @@ class RESTService {
   }
 }
 
-async function getData() {
-  const ENDPOINT = 'http://homework.warbyparker.com';
-  const RESTClient = new RESTService();
-
-  try {
-    let response = await RESTClient.get(ENDPOINT);
-    console.log('testing response from async: ', response);
-  } catch(error) {
-    console.log('RESTService error. How are you gentlepeople !! All your base are belong to us: ', error);
-  }
-}
-getData();
-
 
 // Scroll Service Class - Listens and Changes size of lightbox on Scroll
   // listen for scroll Event
   // onScroll handler - calculate new width of div
+class UI { 
+  static displayLightBox() {
+    async function getData() {
+      const ENDPOINT = 'http://homework.warbyparker.com';
+      const RESTClient = new RESTService();
+    
+      try {
+        let response = await RESTClient.get(ENDPOINT);
+        console.log('testing response from getData: ', response);
+
+      } catch(error) {
+        console.log('RESTService error. How are you gentlepeople !! All your base are belong to us: ', error);
+      }
+    }
+    getData();
+  }
+}
+  
+// Event: Display data from XHR Requests
+document.addEventListener('DOMContentLoaded', UI.displayLightBox);
+
+const myUI = new UI();
+
+// Event: Display data from XHR Requests
+//document.addEventListener('DOMContentLoaded', UI.renderLightBox);
 
 // UI Class - Handles Lightbox UI
   // Event: Display data from XHR Requests
