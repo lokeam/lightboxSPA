@@ -63,6 +63,7 @@ blockquote {
   width: 80vw;
   display: flex;
   flex-direction: column;
+  border: 2px solid rgba(0,0,0,0.12);
 }
 
 .lightbox__img-container {

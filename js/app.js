@@ -40,6 +40,21 @@ class RESTService {
 // Scroll Service Class - Listens and Changes size of lightbox on Scroll
   // listen for scroll Event
   // onScroll handler - calculate new width of div
+class ScrollService {
+  constructor() {
+    this._onScroll = this._onScroll.bind(this);
+    this._listen();
+  }
+
+  _listen() {
+    window.addEventListener('scroll', this._onScroll);
+  }
+
+  _onScroll() {
+    console.log('_onScroll');
+  }
+}
+
 
 
 // UI Class - Handles Lightbox UI
@@ -61,6 +76,7 @@ class UI {
       }
     }
     getData();
+    UI.setLightBoxWidth();
   }
 
   static renderLightBox(response) {
@@ -98,9 +114,15 @@ class UI {
     lightboxRoot.insertAdjacentHTML('afterbegin', lightboxImageContainer);
     lightboxRoot.insertAdjacentHTML('beforeend', lightboxTextContainer);
   }
+
+  static setLightBoxWidth() {
+    let lightbox = document.querySelector('.lightbox');
+    lightbox.style.width = `${window.innerWidth * .80}px`;
+  }
 }
   
 // Event: Display data from XHR Requests
 document.addEventListener('DOMContentLoaded', UI.displayLightBox);
 
 const myUI = new UI();
+const myScroll = new ScrollService();
