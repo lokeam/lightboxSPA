@@ -52,6 +52,51 @@ class ScrollService {
 
   _onScroll() {
     console.log('_onScroll');
+
+    window.requestAnimationFrame( () => {
+      this._calculateWidth();
+    })
+  }
+
+  _calculateWidth() {
+    console.log('_calculateWidth');
+    let body = document.body;
+    let html = document.documentElement;
+
+    // viewport height
+    let clientHeight = html.clientHeight;
+
+    // document height (as set by css) 
+    let documentHeight = Math.max(body.scrollHeight, body.offsetHeight,html.clientHeight, html.scrollHeight, html.offsetHeight);
+
+    // measurement of body's total css height.
+    let pageHeight = document.documentElement.offsetHeight;
+
+    // interior height of the window in pixels
+    let windowHeight = window.innerHeight;
+
+    // does the same thing as html.scrollTop, more universal browser support
+    let scrollPosition = window.scrollY || window.pageYOffset || document.body.scrollTop + (document.documentElement && document.documentElement.scrollTop || 0);
+
+    let documentWindowTopHeight = documentHeight - windowHeight;
+
+    let lightbox = document.querySelector('.lightbox');
+    
+    
+    let dynamicSize = (window.innerWidth * .80) * (1 - (scrollPosition / documentWindowTopHeight));
+    lightbox.style.width = `${dynamicSize}px`;
+
+    console.log('testing winScrollTop [', scrollPosition, '] / documentWindowTopHeight [',documentWindowTopHeight, '] => ', scrollPosition/documentWindowTopHeight);
+    console.log('testing 1 - (winScrollTop/documentWindowTopHeight): ', 1 - (scrollPosition / documentWindowTopHeight));
+    console.log('testing newSize: ', window.innerWidth * (1 - (scrollPosition/documentWindowTopHeight)));
+
+    if ( (pageHeight <= windowHeight+scrollPosition) || (lightbox.style.width <= window.innerWidth*.33)) {
+      console.log('at bottom of page || lightbox width <== window.innerWidth*.33');
+      console.log('final lightbox width: ', lightbox.style.width);
+    } else {
+      lightbox.style.width = dynamicSize;
+      console.log('continuing to resize lightbox. lbwidth: ', lightbox.style.width);
+    }
   }
 }
 
