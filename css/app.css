@@ -79,4 +79,33 @@ blockquote {
   border: 10px solid blue;
 }
 
+.lightbox__img {
+  margin-left: 30px;
 
+  /* debug */
+  border: 2px solid black;
+}
+
+.lightbox__img:first-of-type {
+  margin-left: 0;
+}
+
+.lightbox__text-quote {
+  font-size: 1.4em;
+  padding: 0 0 20px 0;
+
+  /* debug */
+  border: 2px solid purple;
+}
+
+.lightbox__text-author,
+.lightbox__text-pub {
+  font-size: 1.5em;
+  text-transform: uppercase;
+  line-height: 1.2em;
+  text-align: right;
+  margin-right: 15%;
+
+  /* debug */
+  border: 2px solid orange;
+}
