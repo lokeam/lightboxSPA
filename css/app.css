@@ -1,0 +1,82 @@
+/* CSS RESET */
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+
+html, body, blockquote {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  width: 100%;
+  line-height: 1.5;
+  font-family: Helvetica, Arial, sans-serif;
+  vertical-align: baseline;
+  color: #333333;
+}
+
+ol, ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+h1, p {
+  padding: 0;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+blockquote {
+  quotes: none;
+}
+
+:focus {
+  outline-color: blue;
+}
+
+*, *::before, *::after{
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* App specific */
+.app {
+  height: 2000px;
+
+  /* debug */
+  border: 10px solid red;
+}
+
+.lightbox {
+  padding: 30px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+
+  /* debug */
+  border: 10px solid green;
+}
+
+.lightbox__img-container {
+  display: flex;
+  padding: 0 0 20px 0;
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+
+  /* debug */
+  border: 10px solid blue;
+}
+
+
