@@ -40,6 +40,10 @@ class RESTService {
 // Scroll Service Class - Listens and Changes size of lightbox on Scroll
   // listen for scroll Event
   // onScroll handler - calculate new width of div
+
+
+// UI Class - Handles Lightbox UI
+  // Event: Display data from XHR Requests
 class UI { 
   static displayLightBox() {
     async function getData() {
@@ -50,11 +54,35 @@ class UI {
         let response = await RESTClient.get(ENDPOINT);
         console.log('testing response from getData: ', response);
 
+        UI.renderLightBox(response);
+
       } catch(error) {
         console.log('RESTService error. How are you gentlepeople !! All your base are belong to us: ', error);
       }
     }
     getData();
+  }
+
+  static renderLightBox(response) {
+    const { images, author, publication, quote } = response;
+
+    const lightboxImgMarkup = image => {
+      let imgAlt = image.match( /[^\-]+(?=\.[^\/.]*$)/ )[0];
+      return `<li class="lightbox__img">
+        <img src="${image}" alt="Jack Kerouac profile photo in ${imgAlt} filter" />
+      </li>`;
+    };
+
+    const lightboxContainerMarkup = listItems => {
+      return `<ul class="lightbox__img-container">${listItems.join('')}</ul>`;
+    };
+
+    const lightboxImgArray = images.map( img => lightboxImgMarkup(img) );
+
+    const lightboxImageContainer = lightboxContainerMarkup(lightboxImgArray);
+
+    const lightboxRoot = document.querySelector('.lightbox');
+    lightboxRoot.insertAdjacentHTML('afterbegin', lightboxImageContainer);
   }
 }
   
@@ -62,10 +90,3 @@ class UI {
 document.addEventListener('DOMContentLoaded', UI.displayLightBox);
 
 const myUI = new UI();
-
-// Event: Display data from XHR Requests
-//document.addEventListener('DOMContentLoaded', UI.renderLightBox);
-
-// UI Class - Handles Lightbox UI
-  // Event: Display data from XHR Requests
-
