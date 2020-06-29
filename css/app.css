@@ -4,7 +4,9 @@ html {
   box-sizing: border-box;
 }
 
-html, body, blockquote {
+html,
+body,
+blockquote {
   padding: 0;
   border: 0;
   margin: 0;
@@ -15,7 +17,8 @@ html, body, blockquote {
   color: #333333;
 }
 
-ol, ul {
+ol,
+ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -26,7 +29,8 @@ img {
   max-width: 100%;
 }
 
-h1, p {
+h1,
+p {
   padding: 0;
   font-size: 100%;
   font-weight: normal;
@@ -40,7 +44,9 @@ blockquote {
   outline-color: blue;
 }
 
-*, *::before, *::after{
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -49,9 +55,6 @@ blockquote {
 /* App specific */
 .app {
   height: 2000px;
-
-  /* debug */
-  border: 10px solid red;
 }
 
 .lightbox {
@@ -60,7 +63,7 @@ blockquote {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* width: 80vw; */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   border: 2px solid rgba(0,0,0,0.12);
@@ -83,15 +86,26 @@ blockquote {
 }
 
 .lightbox__text-quote {
-  font-size: 1.4em;
+  font-size: 1.1em;
   padding: 0 0 20px 0;
 }
 
 .lightbox__text-author,
 .lightbox__text-pub {
-  font-size: 1.5em;
+  font-size: 1em;
   text-transform: uppercase;
   line-height: 1.2em;
   text-align: right;
   margin-right: 15%;
+}
+
+@media (min-width: 600px) {
+  .lightbox__text-quote {
+    font-size: 1.4em;
+  }
+
+  .lightbox__text-author,
+  .lightbox__text-pub {
+    font-size: 1.5em;
+  }
 }
