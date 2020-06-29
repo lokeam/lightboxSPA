@@ -7,6 +7,12 @@ class RESTService {
     this._rawResponse = null;
   }
 
+  /**
+   * Utilizes XMLHttpRequest to generate and make an XHR request
+   * @param  {?string} resource endpoint to call
+   * @param  {?Object} data request data to post
+   * @return {Promise} resolve/reject result from the call
+   */
   _makeRequest(resource = '', method = 'GET') {
     const xhr = new XMLHttpRequest();
 
@@ -30,7 +36,12 @@ class RESTService {
       xhr.send();
     })
   }
-
+  
+ /**
+  * Shorthand method for making a GET request
+  * @param {string} resource - endpoint to call
+  * @return {Promise} resolve/reject from the request
+  */
   get(resource = '') {
     return this._makeRequest(resource, 'GET');
   }
@@ -46,22 +57,29 @@ class ScrollService {
     this._listen();
   }
 
+  /**
+   * Adds scroll event listener.
+   */
   _listen() {
     window.addEventListener('scroll', this._onScroll);
   }
 
+  /**
+   * Handler for window's scroll event. Calls _calculate once per animation frame.
+   */
   _onScroll() {
-    console.log('_onScroll');
-
     window.requestAnimationFrame( () => {
       this._calculateWidth();
     })
   }
 
+  /**
+   * Re-calculates lightbox width based upon scroll position. Lightbox is 80% of viewport at top of document, 30% width of original 80% at bottom
+   */
   _calculateWidth() {
-    console.log('_calculateWidth');
-    let body = document.body;
     let html = document.documentElement;
+    let body = document.body;
+    let lightbox = document.querySelector('.lightbox');
 
     // viewport height
     let clientHeight = html.clientHeight;
@@ -79,23 +97,12 @@ class ScrollService {
     let scrollPosition = window.scrollY || window.pageYOffset || document.body.scrollTop + (document.documentElement && document.documentElement.scrollTop || 0);
 
     let documentWindowTopHeight = documentHeight - windowHeight;
-
-    let lightbox = document.querySelector('.lightbox');
-    
     
     let dynamicSize = (window.innerWidth * .80) * (1 - (scrollPosition / documentWindowTopHeight));
     lightbox.style.width = `${dynamicSize}px`;
 
-    console.log('testing winScrollTop [', scrollPosition, '] / documentWindowTopHeight [',documentWindowTopHeight, '] => ', scrollPosition/documentWindowTopHeight);
-    console.log('testing 1 - (winScrollTop/documentWindowTopHeight): ', 1 - (scrollPosition / documentWindowTopHeight));
-    console.log('testing newSize: ', window.innerWidth * (1 - (scrollPosition/documentWindowTopHeight)));
-
-    if ( (pageHeight <= windowHeight+scrollPosition) || (lightbox.style.width <= window.innerWidth*.33)) {
-      console.log('at bottom of page || lightbox width <== window.innerWidth*.33');
-      console.log('final lightbox width: ', lightbox.style.width);
-    } else {
+    if (! (pageHeight <= windowHeight+scrollPosition) || (lightbox.style.width <= window.innerWidth*.33)) {
       lightbox.style.width = dynamicSize;
-      console.log('continuing to resize lightbox. lbwidth: ', lightbox.style.width);
     }
   }
 }
@@ -112,7 +119,6 @@ class UI {
     
       try {
         let response = await RESTClient.get(ENDPOINT);
-        console.log('testing response from getData: ', response);
 
         UI.renderLightBox(response);
 
